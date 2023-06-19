@@ -5,23 +5,34 @@ on:
     branches:
       - pre-production
 
+
 env:
-  GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-  BASE_BRANCH: "develop"
+  # replace "github_username" with your GitHub username
+  # replace "github.com/username/repo.git" with your GitHub repo path
+  # do NOT replace ${{secrets.GITHUB_TOKEN}}, GitHub will take care of it
+  # MY_REPO: https://github_username:${{secrets.GITHUB_TOKEN}}@github.com/username/repo.git
+  MY_REPO: https://sonali-makerble:${{secrets.GITHUB_TOKEN}}@github.com/sonali-makerble/auto-merge-to-develop.git
+
+  # replace "long-lived_branch_name" with your branch name
+  MY_BRANCH: develop
+
+  # replace it with the path to master repo
+  MASTER_REPO: https://sonali-makerble:${{secrets.GITHUB_TOKEN}}@github.com/sonali-makerble/auto-merge-to-develop.git
+
+  # replace "master" with your master branch name
+  MASTER_BRANCH: pre-production
 
 jobs:
-  automerge:
+  merge:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup Git
-        run: |
-          git config user.name "Automerge Bot"
-          git config user.email "bot@example.com"
-      - name: Merge pre-production into develop
-        run: |
-          git fetch
-          git checkout ${{env.BASE_BRANCH}}
-          git rebase pre-production
-          git push origin ${{env.BASE_BRANCH}}
+    - name: Merge with master
+      run: |
+        git clone ${{env.MY_REPO}} -b ${{env.MY_BRANCH}} tmp
+        cd tmp
+        git config user.name "Automerge Bot"
+        git config user.email "bot@example.com"
+        git config pull.rebase false
+        git pull ${{env.MASTER_REPO}} ${{env.MASTER_BRANCH}}
+        git push

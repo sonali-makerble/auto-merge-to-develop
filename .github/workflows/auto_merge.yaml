@@ -1,0 +1,26 @@
+name: Auto Merge
+
+on:
+  push:
+    branches:
+      - pre-production
+
+env:
+  GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+  BASE_BRANCH: "develop"
+
+jobs:
+  automerge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup Git
+        run: |
+          git config user.name "Automerge Bot"
+          git config user.email "bot@example.com"
+      - name: Merge pre-production into develop
+        run: |
+          git checkout ${{env.BASE_BRANCH}}
+          git merge --no-ff pre-production
+          git push origin ${{env.BASE_BRANCH}}

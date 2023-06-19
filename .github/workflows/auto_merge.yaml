@@ -21,6 +21,7 @@ jobs:
           git config user.email "bot@example.com"
       - name: Merge pre-production into develop
         run: |
+          git fetch
           git checkout ${{env.BASE_BRANCH}}
           git merge --no-ff pre-production
           git push origin ${{env.BASE_BRANCH}}

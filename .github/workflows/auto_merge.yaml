@@ -23,5 +23,5 @@ jobs:
         run: |
           git fetch
           git checkout ${{env.BASE_BRANCH}}
-          git merge --no-ff pre-production
+          git merge pre-production
           git push origin ${{env.BASE_BRANCH}}

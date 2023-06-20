@@ -49,7 +49,6 @@ jobs:
         committer: GitHub <noreply@github.com>
         author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
         signoff: false
-        branch: example-patches
+        branch: merge-${{env.MASTER_BRANCH}}-to-${{env.MY_BRANCH}}
         delete-branch: true
-        title: '[Example] Update report'
         body: "This PR is automatically created to merge changes from ${MASTER_BRANCH} into ${MY_BRANCH}."

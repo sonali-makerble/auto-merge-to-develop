@@ -36,16 +36,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Approve Pull Request2
-      #   uses: juliangruber/approve-pull-request-action@v2.0.0
-      #   with:
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      #     number: ${{ env.PR_NUMBER }}
+      - name: Approve Pull Request2
+        uses: juliangruber/approve-pull-request-action@v2.0.0
+        with:
+          github-token: ${{ secrets.OTHER_TOKEN }}
+          number: ${{ env.PR_NUMBER }}
 
-      - name: Auto Merge Pull Request
-        uses: pascalgn/automerge-action@v0.15.6
+      - name: Merge Pull request2
+        uses: juliangruber/merge-pull-request-action@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          merge-method: "squash"
-          filter-by-commit-message: "Auto-generated Pull Request"
-
+          number: ${{ env.PR_NUMBER }}
+          method: squash

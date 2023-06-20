@@ -47,8 +47,8 @@ jobs:
         branch: merge-${{env.MASTER_BRANCH}}-to-${{env.MY_BRANCH}}
         base:  ${{env.MY_BRANCH}}
         title: "demo for auto pr1"
-        committer: "sonali" <"sonali123@gmail.com">
-        author: "sonali" <"sonali123@gmail.com">
+        committer: sonali <sonali123@gmail.com>
+        author: sonali <sonali123@gmail.com>
         body:
           This is to show automatic PR creation
         token: ${{ secrets.GITHUB_TOKEN }}

@@ -41,28 +41,28 @@ jobs:
         git push origin merge-${{env.MASTER_BRANCH}}-to-${{env.MY_BRANCH}}
 
     - name: Raise PR 1
-        id: cpr
-        uses: peter-evans/create-pull-request@v3
-        with:
-          branch: merge-${{env.MASTER_BRANCH}}-to-${{env.MY_BRANCH}}
-          base: ${{env.MY_BRANCH}}
-          title: "demo for auto pr1"
-          committer: "sonali" <"sonali123@gmail.com">
-          author: "sonali" <"sonali123@gmail.com">
-          body:
-            This is to show automatic PR creation
-          token: ${{ secrets.GITHUB_TOKEN }}
-          delete-branch: true
+      id: cpr
+      uses: peter-evans/create-pull-request@v3
+      with:
+        branch: merge-${{env.MASTER_BRANCH}}-to-${{env.MY_BRANCH}}
+        base:  ${{env.MY_BRANCH}}
+        title: "demo for auto pr1"
+        committer: "sonali" <"sonali123@gmail.com">
+        author: "sonali" <"sonali123@gmail.com">
+        body:
+          This is to show automatic PR creation
+        token: ${{ secrets.GITHUB_TOKEN }}
+        delete-branch: true
 
-      - name: Approve Pull Request1
-        uses: juliangruber/approve-pull-request-action@v1
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN}}
-          number: ${{ steps.cpr.outputs.pull-request-number }}
+    - name: Approve Pull Request1
+      uses: juliangruber/approve-pull-request-action@v1
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN}}
+        number: ${{ steps.cpr.outputs.pull-request-number }}
 
-      - name: Merge Pull request1
-        uses: juliangruber/merge-pull-request-action@v1
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          number: ${{ steps.cpr.outputs.pull-request-number }}
-          method: squash
+    - name: Merge Pull request1
+      uses: juliangruber/merge-pull-request-action@v1
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        number: ${{ steps.cpr.outputs.pull-request-number }}
+        method: squash

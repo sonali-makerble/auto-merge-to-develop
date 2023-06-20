@@ -1,1 +1,1 @@
-# auto merge ok done .
+remove readme

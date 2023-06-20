@@ -20,7 +20,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         ref: ${{env.MASTER_BRANCH}}
-        token: ${{secrets.GITHUB_TOKEN}}
+        token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Create new branch
       run: |
@@ -30,10 +30,15 @@ jobs:
         git push ${{env.MY_REPO}} HEAD:${{env.MY_BRANCH}}-update
 
     - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v3
+      id: cpr
+      uses: peter-evans/create-pull-request@v5
       with:
-        token: ${{secrets.GITHUB_TOKEN}}
-        title: "Automatically merge ${MASTER_BRANCH} into ${MY_BRANCH}"
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: Update report
+        committer: GitHub <noreply@github.com>
+        author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+        signoff: false
+        branch: example-patches
+        delete-branch: true
+        title: '[Example] Update report'
         body: "This PR is automatically created to merge changes from ${MASTER_BRANCH} into ${MY_BRANCH}."
-        base: ${{env.MY_BRANCH}}
-        head: ${{env.MY_BRANCH}}-update

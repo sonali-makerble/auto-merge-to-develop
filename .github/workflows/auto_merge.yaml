@@ -35,15 +35,15 @@ jobs:
       run: |
         git config user.name "Automerge Bot"
         git config user.email "bot@example.com"
-        git checkout -b merge-${{env.MASTER_BRANCH}}-to-${{env.MY_BRANCH}}
-        git push origin merge-${{env.MASTER_BRANCH}}-to-${{env.MY_BRANCH}}
+        git checkout -b merge-${{env.FROM_BRANCH}}-to-${{env.TO_BRANCH}}
+        git push origin merge-${{env.FROM_BRANCH}}-to-${{env.TO_BRANCH}}
 
     - name: Raise PR
       id: cpr
       uses: peter-evans/create-pull-request@v3
       with:
-        branch:  ${{env.MY_BRANCH}}
-        base: merge-${{env.MASTER_BRANCH}}-to-${{env.MY_BRANCH}}
+        branch:  ${{env.TO_BRANCH}}
+        base: merge-${{env.FROM_BRANCH}}-to-${{env.TO_BRANCH}}
         title: "demo for auto pr1"
         committer: sonali <sonali123@gmail.com>
         author: sonali <sonali123@gmail.com>

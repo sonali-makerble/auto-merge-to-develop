@@ -33,14 +33,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Auto-approve Pull Request
-        if: steps.create-pr.outputs.pr_url
-        uses: hmarr/auto-approve-action@v2.1.0
+        uses: hmarr/auto-approve-action@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Auto-merge Pull Request
-        if: steps.create-pr.outputs.pr_url
-        uses: pascalgn/automerge-action@v0.14.3
+        id: automerge
+        uses: pascalgn/automerge-action@v0.15.6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MERGE_LABELS: automerge

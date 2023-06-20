@@ -22,12 +22,23 @@ jobs:
         ref: ${{env.MASTER_BRANCH}}
         token: ${{ secrets.GITHUB_TOKEN }}
 
+
+    # - name: Merge pre-production into develop
+    #   run: |
+    #     git clone ${{env.MASTER_REPO}} -b ${{env.TO_BRANCH}} tmp
+    #     cd tmp
+    #     git config user.name "Automerge Bot"
+    #     git config user.email "automergebot@makerble.com"
+    #     git config pull.rebase false
+    #     git pull ${{env.MASTER_REPO}} ${{env.FROM_BRANCH}}
+    #     git push origin ${{env.TO_BRANCH}}
+
     - name: Create new branch
       run: |
         git config user.name "Automerge Bot"
         git config user.email "bot@example.com"
         git checkout -b merge-${{env.MASTER_BRANCH}}-to-${{env.MY_BRANCH}}
-        git push ${{env.MY_REPO}} HEAD:${{env.MY_BRANCH}}-update
+        git push origin merge-${{env.MASTER_BRANCH}}-to-${{env.MY_BRANCH}}
 
     - name: Create Pull Request
       id: cpr

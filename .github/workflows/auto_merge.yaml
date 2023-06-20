@@ -21,7 +21,6 @@ jobs:
       with:
         ref: ${{env.MASTER_BRANCH}}
         token: ${{ secrets.GITHUB_TOKEN }}
-
     - name: Merge pre-production into develop
       run: |
         git clone ${{env.MASTER_REPO}} -b ${{env.TO_BRANCH}} tmp

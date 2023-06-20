@@ -5,21 +5,10 @@ on:
     branches:
       - pre-production
 
-
 env:
-  # replace "github_username" with your GitHub username
-  # replace "github.com/username/repo.git" with your GitHub repo path
-  # do NOT replace ${{secrets.GITHUB_TOKEN}}, GitHub will take care of it
-  # MY_REPO: https://github_username:${{secrets.GITHUB_TOKEN}}@github.com/username/repo.git
   MY_REPO: https://sonali-makerble:${{secrets.GITHUB_TOKEN}}@github.com/sonali-makerble/auto-merge-to-develop.git
-
-  # replace "long-lived_branch_name" with your branch name
   MY_BRANCH: develop
-
-  # replace it with the path to master repo
   MASTER_REPO: https://sonali-makerble:${{secrets.GITHUB_TOKEN}}@github.com/sonali-makerble/auto-merge-to-develop.git
-
-  # replace "master" with your master branch name
   MASTER_BRANCH: pre-production
 
 jobs:
@@ -27,12 +16,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Merge with master
+    - name: Checkout repo
+      uses: actions/checkout@v2
+      with:
+        ref: ${{env.MASTER_BRANCH}}
+        token: ${{secrets.GITHUB_TOKEN}}
+
+    - name: Create new branch
       run: |
-        git clone ${{env.MY_REPO}} -b ${{env.MY_BRANCH}} tmp
-        cd tmp
         git config user.name "Automerge Bot"
         git config user.email "bot@example.com"
-        git config pull.rebase false
-        git pull ${{env.MASTER_REPO}} ${{env.MASTER_BRANCH}}
-        git push origin ${{env.MY_BRANCH}}
+        git checkout -b merge-${{env.MASTER_BRANCH}}-to-${{env.MY_BRANCH}}
+        git push ${{env.MY_REPO}} HEAD:${{env.MY_BRANCH}}-update
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v3
+      with:
+        token: ${{secrets.GITHUB_TOKEN}}
+        title: "Automatically merge ${MASTER_BRANCH} into ${MY_BRANCH}"
+        body: "This PR is automatically created to merge changes from ${MASTER_BRANCH} into ${MY_BRANCH}."
+        base: ${{env.MY_BRANCH}}
+        head: ${{env.MY_BRANCH}}-update

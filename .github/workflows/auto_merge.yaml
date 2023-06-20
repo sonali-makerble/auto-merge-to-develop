@@ -37,11 +37,11 @@ jobs:
         uses: juliangruber/approve-pull-request-action@v2.0.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          number: ${{ echo $(gh api repos/${{ github.repository }}/pulls) | jq -r --arg head_ref ${{ env.FROM_BRANCH }} --arg base_ref ${{ env.TO_BRANCH }} '.[] | select(.head.ref == $head_ref and .base.ref == $base_ref) | .number' }}
+          number: echo $(gh api repos/${{ github.repository }}/pulls) | jq -r --arg head_ref ${{ env.FROM_BRANCH }} --arg base_ref ${{ env.TO_BRANCH }} '.[] | select(.head.ref == $head_ref and .base.ref == $base_ref) | .number'
 
       - name: Merge Pull request2
         uses: juliangruber/merge-pull-request-action@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          number: ${{ echo $(gh api repos/${{ github.repository }}/pulls) | jq -r --arg head_ref ${{ env.FROM_BRANCH }} --arg base_ref ${{ env.TO_BRANCH }} '.[] | select(.head.ref == $head_ref and .base.ref == $base_ref) | .number' }}
+          number: echo $(gh api repos/${{ github.repository }}/pulls) | jq -r --arg head_ref ${{ env.FROM_BRANCH }} --arg base_ref ${{ env.TO_BRANCH }} '.[] | select(.head.ref == $head_ref and .base.ref == $base_ref) | .number'
           method: squash

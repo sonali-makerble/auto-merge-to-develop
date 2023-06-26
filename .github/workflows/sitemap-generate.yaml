@@ -1,8 +1,9 @@
 name: Generate Sitemap
 
 on:
-  schedule:
-    - cron: '0 1 * * *'
+  push:
+    branches:
+      - main
 
 jobs:
   generate_sitemap:

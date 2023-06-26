@@ -25,7 +25,7 @@ jobs:
       run: npm install -g sitemap-generator-cli
 
     - name: Generate sitemap
-      run: sitemap-generator https://wwww.heyiamsra.com
+      run: sitemap-generator https://www.heyiamsra.com
 
     - name: Move sitemap.xml to public directory
       run: mv sitemap.xml public/

@@ -1,0 +1,43 @@
+name: Generate Sitemap
+
+on:
+  schedule:
+    - cron: '0 1 * * *'
+
+jobs:
+  generate_sitemap:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        ref: master
+
+    - name: Create new branch
+      run: |
+        git checkout -b sitemap-update
+        git config --global user.email "github-action@example.com"
+        git config --global user.name "GitHub Action"
+
+    - name: Install sitemap-generator-cli
+      run: npm install -g sitemap-generator-cli
+
+    - name: Generate sitemap
+      run: sitemap-generator https://about.makerble.com
+
+    - name: Move sitemap.xml to public directory
+      run: mv sitemap.xml public/
+
+    - name: Commit and push changes
+      run: |
+        git add public/sitemap.xml
+        git commit -m "Updated sitemap.xml"
+        git push --set-upstream origin sitemap-update
+
+    - name: Create pull request
+      uses: peter-evans/create-pull-request@v3
+      with:
+        title: "Update sitemap.xml"
+        body: "This PR updates the sitemap.xml file."
+        branch: "sitemap-update"

@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.heyiamsra.com/</loc>
+    <loc>https://www.google.com/</loc>
   </url>
   <url>
-    <loc>https://www.heyiamsra.com/resources/Sonali%20Rajput.pdf</loc>
+    <loc>https://www.google.com/imghp</loc>
+  </url>
+  <url>
+    <loc>https://www.google.com/advanced_search</loc>
+  </url>
+  <url>
+    <loc>https://www.google.com/services/</loc>
+  </url>
+  <url>
+    <loc>https://www.google.com/intl/en/policies/privacy/</loc>
+  </url>
+  <url>
+    <loc>https://www.google.com/intl/en/policies/terms/</loc>
+  </url>
+  <url>
+    <loc>https://www.google.com/webhp</loc>
+  </url>
+  <url>
+    <loc>https://www.google.com/advanced_image_search</loc>
   </url>
 </urlset>

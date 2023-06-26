@@ -59,3 +59,16 @@ jobs:
       id: create_pull_request
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Approve Pull Request
+      uses: juliangruber/approve-pull-request-action@v2.0.0
+      with:
+        github-token: ${{ secrets.OTHER_TOKEN }}
+        number: ${{ env.PR_NUMBER }}
+
+    - name: Merge Pull request
+      uses: juliangruber/merge-pull-request-action@v1
+      with:
+        github-token: ${{ secrets.OTHER_TOKEN }}
+        number: ${{ env.PR_NUMBER }}
+        method: merge
